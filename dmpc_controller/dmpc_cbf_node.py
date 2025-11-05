@@ -15,7 +15,7 @@ def quat_to_yaw(qz: float, qw: float)  -> float:
 
 class DMPCNode(Node):
     def __init__(self) -> None:
-        super().__init__(self.get_name())
+        super().__init__()
 
         # --- Robot parameters ---
         self.r_wheel: float = 0.05
