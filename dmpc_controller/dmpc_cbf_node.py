@@ -31,8 +31,8 @@ class DMPCNode(Node):
         # Weights
         self.Qp  = np.diag([10.0 , 15.0])
         self.Qth = 2.0
-        self.Qv  = 2.0
-        self.R   = np.diag([0.5, 0.5])
+        self.Qv  = 1.0
+        self.R   = np.diag([1.0, 1.0])
         self.Sdu = 3.0
 
         # --- CBF parameters ---
