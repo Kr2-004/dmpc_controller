@@ -15,7 +15,7 @@ def quat_to_yaw(qz: float, qw: float)  -> float:
 
 class DMPCNode(Node):
     def __init__(self) -> None:
-        super().__init__('dmpc_cbf_node')
+        super().__init__('dmpc_node')
 
         # --- Robot parameters ---
         self.r_wheel: float = 0.05
@@ -35,12 +35,6 @@ class DMPCNode(Node):
         self.R   = np.diag([1.0, 0.5])
         self.Sdu = 2.0
 
-        # --- CBF parameters ---
-        self.R_robot: float = 0.20
-        self.R_obs:   float = 0.20
-        self.alpha_cbf: float = 20.0
-        self.rho_slack: float = 1e4
-
         # Stop condition
         self.x_stop: float = 3.0
 
@@ -51,16 +45,13 @@ class DMPCNode(Node):
         self.start_wall_time = time.time()
         self.v_ref: float=0.25
 
-        # Obstacle state
-        self.obstacle_xy: Optional[np.ndarray] = None
-
         # --- Warm start ---
         self.U_prev: Optional[np.ndarray] = None
 
-        # Build solver
+        # Build solver (pure MPC)
         self._build_solver()
 
-        # ROS I/O
+        # ROS params
         self.declare_parameter('robot_name', 'puzzlebot1')
         robot_name = self.get_parameter('robot_name').get_parameter_value().string_value
 
@@ -71,16 +62,13 @@ class DMPCNode(Node):
             PoseStamped, f'/vs/reference/{robot_name}', self.vs_cb, 20)
         self.sub_vref = self.create_subscription(
             Float32, '/vs/reference_speed', self.vref_cb, 10)
-        self.sub_obs_pose = self.create_subscription(
-            PoseStamped, '/vicon/Obstacle/Obstacle/pose', self.obstacle_cb, 10)
 
         # --- Publishers ---
         self.pub_L = self.create_publisher(Float32, f'/{robot_name}/VelocitySetL', 10)
         self.pub_R = self.create_publisher(Float32, f'/{robot_name}/VelocitySetR', 10)
-        self.pub_cbf = self.create_publisher(Float32MultiArray, '/cbf_monitor', 10)
 
         self.timer = self.create_timer(self.Ts, self.control_step)
-        self.get_logger().info(f"✅ DMPC node ready for {robot_name}.")
+        self.get_logger().info(f"✅ PURE MPC node ready for {robot_name}.")
 
     # ---------------- Callbacks ----------------
     def pose_cb(self, msg: PoseStamped):
@@ -98,25 +86,18 @@ class DMPCNode(Node):
     def vref_cb(self, msg: Float32):
         self.v_ref = float(msg.data)
 
-    def obstacle_cb(self, msg: PoseStamped):
-        xo = msg.pose.position.x
-        yo = msg.pose.position.y
-        self.obstacle_xy = np.array([xo, yo], dtype=float)
-
-    # ---------------- CasADi solver ----------------
+    # ---------------- CasADi solver (PURE MPC) ----------------
     def _build_solver(self):
         nx, nu, N, Ts = 3, 2, self.N, self.Ts
 
         U = ca.SX.sym('U', nu * N)
-        delta = ca.SX.sym('delta')
 
         x0 = ca.SX.sym('x0', nx)
         ref = ca.SX.sym('ref', nx)
         u_last = ca.SX.sym('u_last', nu)
         v_ref = ca.SX.sym('v_ref')
-        obs = ca.SX.sym('obs', 2)
-        cbf_on = ca.SX.sym('cbf_on')
 
+        # Unicycle model
         def f(x, u):
             th = x[2]
             v, w = u[0], u[1]
@@ -134,7 +115,7 @@ class DMPCNode(Node):
             xk = f(xk, uj)
             Xpred.append(xk)
 
-            # --- Errors ---
+            # --- Reference prediction ---
             ref_jx = ref[0] + v_ref * Ts * j * ca.cos(ref[2])
             ref_jy = ref[1] + v_ref * Ts * j * ca.sin(ref[2])
             ref_jth = ref[2]
@@ -142,33 +123,28 @@ class DMPCNode(Node):
             dx = xk[0] - ref_jx
             dy = xk[1] - ref_jy
             e_th = ca.fmod(xk[2] - ref_jth + ca.pi, 2*ca.pi) - ca.pi
-            e_lat = -ca.sin(ref[2]) * dx + ca.cos(ref[2]) * dy
 
-            # --- Cost terms ---
-            #e_pos = xk[0:2] - ref[0:2]
-            #J += ca.mtimes([e_pos.T, self.Qp, e_pos]) + self.Qth * (e_th**2)
+            # Longitudinal / lateral errors
             e_long =  ca.cos(ref[2]) * dx + ca.sin(ref[2]) * dy
             e_lat  = -ca.sin(ref[2]) * dx + ca.cos(ref[2]) * dy
+
+            # --- Cost terms ---
             J += self.Qp[0,0]*(e_long**2) + self.Qp[1,1]*(e_lat**2) + self.Qth*(e_th**2)
             J += ca.mtimes([uj.T, self.R, uj])
 
-            # Adaptive Qv gating
+            # Adaptive Qv
             align_err = e_lat**2 + 0.5*(e_th**2)
-            alpha_gate = ca.exp(-4.0 * align_err)   # high when aligned, low when misaligned
+            alpha_gate = ca.exp(-4.0 * align_err)
             v_des = alpha_gate * v_ref
             J += self.Qv * ((uj[0] - v_des)**2)
 
-            # Δu penalty (slightly softer first step)
+            # Δu penalty
             if j == 0:
                 du = uj - u_last
-                #J += (0.5*self.Sdu) * ca.mtimes([du.T, du])
             else:
                 uj_prev = U[(j-1)*nu:j*nu]
                 du = uj - uj_prev
             J += self.Sdu * ca.mtimes([du.T, du])
-
-        # Slack penalty
-        J += self.rho_slack * (delta**2)
 
         # Constraints
         g = []
@@ -181,27 +157,12 @@ class DMPCNode(Node):
                   self.omega_max - wl, self.omega_max + wl,
                   self.omega_max - wr, self.omega_max + wr]
 
-        # --- CBF constraint (soft ZCBF) ---
-        dmin = (self.R_robot + self.R_obs)
-        for j in range(N):
-            xj = Xpred[j]
-            vj = U[j*nu]
-            pj = xj[0:2]
-            thj = xj[2]
-            e_th_vec = ca.vertcat(ca.cos(thj), ca.sin(thj))
-            r = pj - obs
-            h = ca.mtimes([r.T, r]) - dmin**2
-            dh = 2.0 * ca.mtimes([r.T, e_th_vec]) * vj
-            g.append(cbf_on * (dh + self.alpha_cbf*h) + delta)
-        g.append(delta)  # delta >= 0
-
-        # --- Build NLP ---
-        Z = ca.vertcat(U, delta)
+        Z = U
         nlp = {
             'x': Z,
             'f': J,
             'g': ca.vertcat(*g),
-            'p': ca.vertcat(x0, ref, u_last, v_ref, obs, cbf_on)
+            'p': ca.vertcat(x0, ref, u_last, v_ref)
         }
 
         opts = {
@@ -211,7 +172,6 @@ class DMPCNode(Node):
             'ipopt.tol': 1e-3
         }
         self.solver = ca.nlpsol('solver', 'ipopt', nlp, opts)
-        self.Z_dim = Z.size1()
         self.U_len = (nu * N)
         self.g_dim = len(g)
 
@@ -231,17 +191,11 @@ class DMPCNode(Node):
             U0 = np.hstack([self.U_prev[2:], self.U_prev[-2:]])
         else:
             U0 = np.tile(self.u_last, self.N)
-        Z0 = np.concatenate([U0, [0.0]])
 
-        if self.obstacle_xy is None:
-            obs_xy = np.array([0.0, 0.0])
-            cbf_on_val = np.array([0.0])
-        else:
-            obs_xy = self.obstacle_xy
-            cbf_on_val = np.array([1.0])
+        Z0 = U0
 
         params = np.concatenate([
-            self.x_current, self.ref, self.u_last, [self.v_ref], obs_xy, cbf_on_val
+            self.x_current, self.ref, self.u_last, [self.v_ref]
         ])
 
         try:
@@ -251,15 +205,16 @@ class DMPCNode(Node):
                 lbg=np.zeros(self.g_dim),
                 ubg=np.full(self.g_dim, np.inf)
             )
-            Zstar = np.array(sol['x']).flatten()
-            Ustar = Zstar[:self.U_len]
+            Ustar = np.array(sol['x']).flatten()
             u0 = Ustar[:2]
             self.U_prev = Ustar.copy()
+
         except Exception as e:
             self.get_logger().warn(f"Solver failed: {e}")
             u0 = np.array([0.05, 0.0])
             self.U_prev = None
 
+        # Apply controls
         v_cmd = float(np.clip(u0[0], 0.0, self.v_max))
         w_cmd = float(np.clip(u0[1], -self.w_max, self.w_max))
 
