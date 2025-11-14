@@ -29,8 +29,8 @@ class DMPCNode(Node):
         self.N: int    = 50
 
         # Weights
-        self.Qp  = np.diag([5.0 , 15.0])
-        self.Qth = 1.0
+        self.Qp  = np.diag([5.0 , 20.0])
+        self.Qth = 0.5
         self.Qv  = 1.0
         self.R   = np.diag([1.0, 0.8])
         self.Sdu = 2.0
