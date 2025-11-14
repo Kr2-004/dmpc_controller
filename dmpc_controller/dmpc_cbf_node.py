@@ -20,7 +20,7 @@ class DMPCNode(Node):
         # --- Robot parameters ---
         self.r_wheel: float = 0.05
         self.b_track: float = 0.085
-        self.v_max: float   = 0.25 
+        self.v_max: float   = 0.20 
         self.w_max: float   = 3.0
         self.omega_max: float = 5.0
 
