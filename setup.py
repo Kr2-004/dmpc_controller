@@ -29,6 +29,7 @@ setup(
         'dmpc_cbf_node = dmpc_controller.dmpc_cbf_node:main',
         'damn = dmpc_controller.damn:main',
         'dude = dmpc_controller.dude:main',
+        'test = dmpc_controller.test:main',
         ],
     },
 )
