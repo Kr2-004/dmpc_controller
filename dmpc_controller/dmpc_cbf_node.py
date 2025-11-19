@@ -29,11 +29,11 @@ class DMPCNode(Node):
         self.N: int    = 50
 
         # Weights
-        self.Qp  = np.diag([8.0 , 25.0])
-        self.Qth = 2.0
-        self.Qv  = 0.8
-        self.R   = np.diag([1.0, 0.5])
-        self.Sdu = 2.0
+        self.Qp  = np.diag([15.0 , 60.0])
+        self.Qth = 4.0
+        self.Qv  = 0.4
+        self.R   = np.diag([1.0, 0.4])
+        self.Sdu = 1.5
 
         # Stop condition
         self.x_stop: float = 3.0
@@ -133,8 +133,8 @@ class DMPCNode(Node):
             J += ca.mtimes([uj.T, self.R, uj])
 
             # Adaptive Qv
-            align_err = e_lat**2 + 0.5*(e_th**2)
-            alpha_gate = ca.exp(-4.0 * align_err)
+            align_err = e_lat**2 + 0.2*(e_th**2)
+            alpha_gate = ca.exp(-10.0 * align_err)
             v_des = alpha_gate * v_ref
             J += self.Qv * ((uj[0] - v_des)**2)
 
