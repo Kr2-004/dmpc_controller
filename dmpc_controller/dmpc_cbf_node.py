@@ -33,7 +33,7 @@ class DMPCNode(Node):
         self.Qth = 2.0
         self.Qv  = 0.2
         self.R   = np.diag([1.0, 0.5])
-        self.Sdu = 1.5
+        self.Sdu = 2.0
 
         # Stop condition
         self.x_stop: float = 3.0
