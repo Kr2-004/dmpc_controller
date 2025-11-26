@@ -369,3 +369,23 @@ class DMPCNode(Node):
         msg = Float32MultiArray()
         msg.data = [float(delta)]
         self.pub_cbf.publish(msg)
+
+def main(args=None):
+    rclpy.init(args=args)
+    node = DMPCNode()
+    try:
+        rclpy.spin(node)
+    except KeyboardInterrupt:
+        pass
+    finally:
+        node.pub_L.publish(Float32(data=0.0))
+        node.pub_R.publish(Float32(data=0.0))
+        node.destroy_node()
+        try:
+            rclpy.shutdown()
+        except Exception:
+            pass
+
+
+if __name__ == '__main__':
+    main()
