@@ -5,7 +5,7 @@ def generate_launch_description():
     return LaunchDescription([
         Node(
             package='dmpc_controller',
-            executable='dmpc_cbf_node',
+            executable='test',
             name='dmpc_cbf_node_1',
             output='screen',
             parameters=[{'robot_name': 'puzzlebot1'}]
