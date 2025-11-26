@@ -80,7 +80,7 @@ class DMPCNode(Node):
 
         # -----------------------------
         # ROS I/O
-        ------------------------------
+        #------------------------------
         # Sub: own pose
         self.create_subscription(
             PoseStamped,
