@@ -246,7 +246,7 @@ class DMPCNode(Node):
         # ----------------------------------------------
         # Multi-robot CBF: For each peer, for each step
         # ----------------------------------------------
-        dmin = self.R_robot + self.margin
+        dmin = 2*self.R_robot + self.margin
 
         for k in range(num_peers):
             px = peer_vec[2*k]
