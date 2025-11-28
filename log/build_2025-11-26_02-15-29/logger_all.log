@@ -1,0 +1,92 @@
+[11.820s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'build']
+[11.821s] DEBUG:colcon:Parsed command line arguments: Namespace(allow_overriding=[], ament_cmake_args=None, base_paths=['.'], build_base='build', catkin_cmake_args=None, catkin_skip_building_tests=False, cmake_args=None, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, cmake_target=None, cmake_target_skip_unavailable=False, continue_on_error=False, event_handlers=None, executor='parallel', ignore_user_meta=False, install_base='install', log_base=None, log_level=None, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0x7fa79423a0>>, merge_install=False, metas=['./colcon.meta'], packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_end=None, packages_ignore=None, packages_ignore_regex=None, packages_select=None, packages_select_build_failed=False, packages_select_by_dep=None, packages_select_regex=None, packages_select_test_failures=False, packages_skip=None, packages_skip_build_finished=False, packages_skip_by_dep=None, packages_skip_regex=None, packages_skip_test_passed=False, packages_skip_up_to=None, packages_start=None, packages_up_to=None, packages_up_to_regex=None, parallel_workers=4, paths=None, symlink_install=False, test_result_base=None, verb_extension=<colcon_core.verb.build.BuildVerb object at 0x7fa79423a0>, verb_name='build', verb_parser=<colcon_defaults.argument_parser.defaults.DefaultArgumentsDecorator object at 0x7fa74e9880>)
+[12.384s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[12.385s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[12.385s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[12.385s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[12.385s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[12.385s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[12.386s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/puzzlebot/puzzlebot_ws/src/dmpc_controller'
+[12.386s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[12.386s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[12.387s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[12.387s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[12.387s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[12.387s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[12.387s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[12.388s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[12.388s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[12.456s] DEBUG:colcon.colcon_core.package_identification:Package '.' with type 'ros.ament_python' and name 'dmpc_controller'
+[12.456s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[12.457s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[12.457s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[12.457s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[12.457s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[13.543s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) check parameters
+[13.543s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) discover
+[13.955s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 1 installed packages in /home/puzzlebot/puzzlebot_ws/install
+[14.156s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 1 installed packages in /home/puzzlebot/ros2_ws/install
+[14.356s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 5 installed packages in /home/puzzlebot/ros2_packages_ws/install
+[14.599s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 276 installed packages in /opt/ros/humble
+[14.607s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) using defaults
+[15.462s] Level 5:colcon.colcon_core.verb:set package 'dmpc_controller' build argument 'cmake_args' from command line to 'None'
+[15.462s] Level 5:colcon.colcon_core.verb:set package 'dmpc_controller' build argument 'cmake_target' from command line to 'None'
+[15.462s] Level 5:colcon.colcon_core.verb:set package 'dmpc_controller' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[15.463s] Level 5:colcon.colcon_core.verb:set package 'dmpc_controller' build argument 'cmake_clean_cache' from command line to 'False'
+[15.463s] Level 5:colcon.colcon_core.verb:set package 'dmpc_controller' build argument 'cmake_clean_first' from command line to 'False'
+[15.463s] Level 5:colcon.colcon_core.verb:set package 'dmpc_controller' build argument 'cmake_force_configure' from command line to 'False'
+[15.463s] Level 5:colcon.colcon_core.verb:set package 'dmpc_controller' build argument 'ament_cmake_args' from command line to 'None'
+[15.463s] Level 5:colcon.colcon_core.verb:set package 'dmpc_controller' build argument 'catkin_cmake_args' from command line to 'None'
+[15.463s] Level 5:colcon.colcon_core.verb:set package 'dmpc_controller' build argument 'catkin_skip_building_tests' from command line to 'False'
+[15.463s] DEBUG:colcon.colcon_core.verb:Building package 'dmpc_controller' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/puzzlebot/puzzlebot_ws/src/dmpc_controller/build/dmpc_controller', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/puzzlebot/puzzlebot_ws/src/dmpc_controller/install/dmpc_controller', 'merge_install': False, 'path': '/home/puzzlebot/puzzlebot_ws/src/dmpc_controller', 'symlink_install': False, 'test_result_base': None}
+[15.658s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[15.856s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[15.857s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/puzzlebot/puzzlebot_ws/src/dmpc_controller' with build type 'ament_python'
+[15.858s] Level 1:colcon.colcon_core.shell:create_environment_hook('dmpc_controller', 'ament_prefix_path')
+[16.074s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[16.075s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/puzzlebot/puzzlebot_ws/src/dmpc_controller/install/dmpc_controller/share/dmpc_controller/hook/ament_prefix_path.ps1'
+[16.078s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/puzzlebot/puzzlebot_ws/src/dmpc_controller/install/dmpc_controller/share/dmpc_controller/hook/ament_prefix_path.dsv'
+[16.081s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/puzzlebot/puzzlebot_ws/src/dmpc_controller/install/dmpc_controller/share/dmpc_controller/hook/ament_prefix_path.sh'
+[16.292s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[16.293s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[18.441s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/puzzlebot/puzzlebot_ws/src/dmpc_controller'
+[18.651s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[18.651s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[21.669s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/puzzlebot/puzzlebot_ws/src/dmpc_controller': PYTHONPATH=/home/puzzlebot/puzzlebot_ws/src/dmpc_controller/build/dmpc_controller/prefix_override:/home/puzzlebot/puzzlebot_ws/src/dmpc_controller/install/dmpc_controller/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base build/dmpc_controller build --build-base /home/puzzlebot/puzzlebot_ws/src/dmpc_controller/build/dmpc_controller/build install --record /home/puzzlebot/puzzlebot_ws/src/dmpc_controller/build/dmpc_controller/install.log --single-version-externally-managed
+[23.141s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/puzzlebot/puzzlebot_ws/src/dmpc_controller' returned '0': PYTHONPATH=/home/puzzlebot/puzzlebot_ws/src/dmpc_controller/build/dmpc_controller/prefix_override:/home/puzzlebot/puzzlebot_ws/src/dmpc_controller/install/dmpc_controller/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base build/dmpc_controller build --build-base /home/puzzlebot/puzzlebot_ws/src/dmpc_controller/build/dmpc_controller/build install --record /home/puzzlebot/puzzlebot_ws/src/dmpc_controller/build/dmpc_controller/install.log --single-version-externally-managed
+[23.363s] Level 1:colcon.colcon_core.environment:checking '/home/puzzlebot/puzzlebot_ws/src/dmpc_controller/install/dmpc_controller' for CMake module files
+[23.365s] Level 1:colcon.colcon_core.environment:checking '/home/puzzlebot/puzzlebot_ws/src/dmpc_controller/install/dmpc_controller' for CMake config files
+[23.369s] Level 1:colcon.colcon_core.environment:checking '/home/puzzlebot/puzzlebot_ws/src/dmpc_controller/install/dmpc_controller/lib'
+[23.369s] Level 1:colcon.colcon_core.environment:checking '/home/puzzlebot/puzzlebot_ws/src/dmpc_controller/install/dmpc_controller/bin'
+[23.369s] Level 1:colcon.colcon_core.environment:checking '/home/puzzlebot/puzzlebot_ws/src/dmpc_controller/install/dmpc_controller/lib/pkgconfig/dmpc_controller.pc'
+[23.371s] Level 1:colcon.colcon_core.environment:checking '/home/puzzlebot/puzzlebot_ws/src/dmpc_controller/install/dmpc_controller/lib/python3.8/site-packages'
+[23.371s] Level 1:colcon.colcon_core.shell:create_environment_hook('dmpc_controller', 'pythonpath')
+[23.575s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/puzzlebot/puzzlebot_ws/src/dmpc_controller/install/dmpc_controller/share/dmpc_controller/hook/pythonpath.ps1'
+[23.576s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/puzzlebot/puzzlebot_ws/src/dmpc_controller/install/dmpc_controller/share/dmpc_controller/hook/pythonpath.dsv'
+[23.577s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/puzzlebot/puzzlebot_ws/src/dmpc_controller/install/dmpc_controller/share/dmpc_controller/hook/pythonpath.sh'
+[23.580s] Level 1:colcon.colcon_core.environment:checking '/home/puzzlebot/puzzlebot_ws/src/dmpc_controller/install/dmpc_controller/bin'
+[23.580s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(dmpc_controller)
+[23.792s] INFO:colcon.colcon_core.shell:Creating package script '/home/puzzlebot/puzzlebot_ws/src/dmpc_controller/install/dmpc_controller/share/dmpc_controller/package.ps1'
+[23.798s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/puzzlebot/puzzlebot_ws/src/dmpc_controller/install/dmpc_controller/share/dmpc_controller/package.dsv'
+[23.800s] INFO:colcon.colcon_core.shell:Creating package script '/home/puzzlebot/puzzlebot_ws/src/dmpc_controller/install/dmpc_controller/share/dmpc_controller/package.sh'
+[23.804s] INFO:colcon.colcon_core.shell:Creating package script '/home/puzzlebot/puzzlebot_ws/src/dmpc_controller/install/dmpc_controller/share/dmpc_controller/package.bash'
+[23.807s] INFO:colcon.colcon_core.shell:Creating package script '/home/puzzlebot/puzzlebot_ws/src/dmpc_controller/install/dmpc_controller/share/dmpc_controller/package.zsh'
+[23.810s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/puzzlebot/puzzlebot_ws/src/dmpc_controller/install/dmpc_controller/share/colcon-core/packages/dmpc_controller)
+[23.811s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[23.812s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[23.812s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished with '0'
+[23.812s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[24.045s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[24.045s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[24.046s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[24.088s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[24.311s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/puzzlebot/puzzlebot_ws/src/dmpc_controller/install/local_setup.ps1'
+[24.316s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/puzzlebot/puzzlebot_ws/src/dmpc_controller/install/_local_setup_util_ps1.py'
+[24.323s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/puzzlebot/puzzlebot_ws/src/dmpc_controller/install/setup.ps1'
+[24.536s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/puzzlebot/puzzlebot_ws/src/dmpc_controller/install/local_setup.sh'
+[24.539s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/puzzlebot/puzzlebot_ws/src/dmpc_controller/install/_local_setup_util_sh.py'
+[24.541s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/puzzlebot/puzzlebot_ws/src/dmpc_controller/install/setup.sh'
+[24.754s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/puzzlebot/puzzlebot_ws/src/dmpc_controller/install/local_setup.bash'
+[24.756s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/puzzlebot/puzzlebot_ws/src/dmpc_controller/install/setup.bash'
+[24.973s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/puzzlebot/puzzlebot_ws/src/dmpc_controller/install/local_setup.zsh'
+[24.975s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/puzzlebot/puzzlebot_ws/src/dmpc_controller/install/setup.zsh'
