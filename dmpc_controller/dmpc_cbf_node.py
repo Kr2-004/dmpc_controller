@@ -134,10 +134,30 @@ class DMPCNode(Node):
             J += ca.mtimes([uj.T, self.R, uj])
 
             # Adaptive Qv
-            align_err = e_lat**2 + 0.2*(e_th**2)
-            alpha_gate = ca.exp(-10.0 * align_err)
+            # --- Gating based on BOTH lateral error and heading ---
+            # tolerances: when BOTH are small, gate ~ 1 and robot can go fast
+            y_tol   = 0.03          # [m] lateral error tolerance
+            th_tol  = ca.pi / 18.0  # [rad] ~10 degrees
+
+            e_lat_abs = ca.fabs(e_lat)
+            e_th_abs  = ca.fabs(e_th)
+
+            # Smooth "AND" gate: each goes from ~1 (good) to ~0 (bad)
+            k_lat = 15.0   # how sharp the transition is for y
+            k_th  = 8.0    # how sharp the transition is for heading
+
+            alpha_lat = 1.0 / (1.0 + ca.exp(k_lat * (e_lat_abs - y_tol)))
+            alpha_th  = 1.0 / (1.0 + ca.exp(k_th  * (e_th_abs  - th_tol)))
+
+            alpha_gate = alpha_lat * alpha_th     # AND: both must be good
             v_des = alpha_gate * v_ref
+
             J += self.Qv * ((uj[0] - v_des)**2)
+
+            #align_err = e_lat**2 + 0.2*(e_th**2)
+            #alpha_gate = ca.exp(-10.0 * align_err)
+            #v_des = alpha_gate * v_ref
+            #J += self.Qv * ((uj[0] - v_des)**2)
 
             # Δu penalty
             if j == 0:
