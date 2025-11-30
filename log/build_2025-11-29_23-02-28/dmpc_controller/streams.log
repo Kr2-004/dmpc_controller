@@ -1,0 +1,33 @@
+[5.757s] Invoking command in '/home/puzzlebot/puzzlebot_ws/src/dmpc_controller': PYTHONPATH=/home/puzzlebot/puzzlebot_ws/src/dmpc_controller/build/dmpc_controller/prefix_override:/home/puzzlebot/puzzlebot_ws/src/dmpc_controller/install/dmpc_controller/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base build/dmpc_controller build --build-base /home/puzzlebot/puzzlebot_ws/src/dmpc_controller/build/dmpc_controller/build install --record /home/puzzlebot/puzzlebot_ws/src/dmpc_controller/build/dmpc_controller/install.log --single-version-externally-managed
+[6.764s] running egg_info
+[6.766s] writing build/dmpc_controller/dmpc_controller.egg-info/PKG-INFO
+[6.768s] writing dependency_links to build/dmpc_controller/dmpc_controller.egg-info/dependency_links.txt
+[6.769s] writing entry points to build/dmpc_controller/dmpc_controller.egg-info/entry_points.txt
+[6.769s] writing requirements to build/dmpc_controller/dmpc_controller.egg-info/requires.txt
+[6.769s] writing top-level names to build/dmpc_controller/dmpc_controller.egg-info/top_level.txt
+[6.922s] reading manifest file 'build/dmpc_controller/dmpc_controller.egg-info/SOURCES.txt'
+[6.928s] writing manifest file 'build/dmpc_controller/dmpc_controller.egg-info/SOURCES.txt'
+[6.928s] running build
+[6.929s] running build_py
+[6.929s] copying dmpc_controller/test.py -> /home/puzzlebot/puzzlebot_ws/src/dmpc_controller/build/dmpc_controller/build/lib/dmpc_controller
+[6.934s] running install
+[6.937s] running install_lib
+[6.941s] copying /home/puzzlebot/puzzlebot_ws/src/dmpc_controller/build/dmpc_controller/build/lib/dmpc_controller/test.py -> /home/puzzlebot/puzzlebot_ws/src/dmpc_controller/install/dmpc_controller/lib/python3.8/site-packages/dmpc_controller
+[6.944s] byte-compiling /home/puzzlebot/puzzlebot_ws/src/dmpc_controller/install/dmpc_controller/lib/python3.8/site-packages/dmpc_controller/test.py to test.cpython-38.pyc
+[6.957s] running install_data
+[6.960s] copying launch/puzzlebot3.launch.py -> /home/puzzlebot/puzzlebot_ws/src/dmpc_controller/install/dmpc_controller/share/dmpc_controller/launch
+[6.960s] copying launch/puzzlebot2.launch.py -> /home/puzzlebot/puzzlebot_ws/src/dmpc_controller/install/dmpc_controller/share/dmpc_controller/launch
+[6.961s] copying launch/puzzlebot1.launch.py -> /home/puzzlebot/puzzlebot_ws/src/dmpc_controller/install/dmpc_controller/share/dmpc_controller/launch
+[6.961s] copying launch/puzzlebot4.launch.py -> /home/puzzlebot/puzzlebot_ws/src/dmpc_controller/install/dmpc_controller/share/dmpc_controller/launch
+[6.962s] running install_egg_info
+[6.969s] removing '/home/puzzlebot/puzzlebot_ws/src/dmpc_controller/install/dmpc_controller/lib/python3.8/site-packages/dmpc_controller-0.0.0-py3.8.egg-info' (and everything under it)
+[6.970s] Copying build/dmpc_controller/dmpc_controller.egg-info to /home/puzzlebot/puzzlebot_ws/src/dmpc_controller/install/dmpc_controller/lib/python3.8/site-packages/dmpc_controller-0.0.0-py3.8.egg-info
+[6.974s] running install_scripts
+[7.038s] Installing damn script to /home/puzzlebot/puzzlebot_ws/src/dmpc_controller/install/dmpc_controller/lib/dmpc_controller
+[7.039s] Installing dmpc_cbf_node script to /home/puzzlebot/puzzlebot_ws/src/dmpc_controller/install/dmpc_controller/lib/dmpc_controller
+[7.040s] Installing dmpc_copy_node script to /home/puzzlebot/puzzlebot_ws/src/dmpc_controller/install/dmpc_controller/lib/dmpc_controller
+[7.040s] Installing dmpc_node script to /home/puzzlebot/puzzlebot_ws/src/dmpc_controller/install/dmpc_controller/lib/dmpc_controller
+[7.041s] Installing dude script to /home/puzzlebot/puzzlebot_ws/src/dmpc_controller/install/dmpc_controller/lib/dmpc_controller
+[7.041s] Installing test script to /home/puzzlebot/puzzlebot_ws/src/dmpc_controller/install/dmpc_controller/lib/dmpc_controller
+[7.042s] writing list of installed files to '/home/puzzlebot/puzzlebot_ws/src/dmpc_controller/build/dmpc_controller/install.log'
+[7.165s] Invoked command in '/home/puzzlebot/puzzlebot_ws/src/dmpc_controller' returned '0': PYTHONPATH=/home/puzzlebot/puzzlebot_ws/src/dmpc_controller/build/dmpc_controller/prefix_override:/home/puzzlebot/puzzlebot_ws/src/dmpc_controller/install/dmpc_controller/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base build/dmpc_controller build --build-base /home/puzzlebot/puzzlebot_ws/src/dmpc_controller/build/dmpc_controller/build install --record /home/puzzlebot/puzzlebot_ws/src/dmpc_controller/build/dmpc_controller/install.log --single-version-externally-managed

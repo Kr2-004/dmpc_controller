@@ -66,6 +66,7 @@ class DMPCNode(Node):
         # --- Publishers ---
         self.pub_L = self.create_publisher(Float32, f'/{robot_name}/VelocitySetL', 10)
         self.pub_R = self.create_publisher(Float32, f'/{robot_name}/VelocitySetR', 10)
+        self.pred_pub = self.create_publisher(Float32MultiArray, f'/{robot_name}/mpc_prediction', 10)
 
         self.timer = self.create_timer(self.Ts, self.control_step)
         self.get_logger().info(f"✅ PURE MPC node ready for {robot_name}.")

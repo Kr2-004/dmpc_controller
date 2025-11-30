@@ -21,7 +21,7 @@ class DMPCNode(Node):
         # Parameters
         # -----------------------------
         self.declare_parameter('robot_name', 'puzzlebot1')
-        self.declare_parameter('robot_list', ['puzzlebot1', 'puzzlebot2'])
+        self.declare_parameter('robot_list', ['puzzlebot1', 'puzzlebot2', 'puzzlebot3', 'puzzlebot4'])
 
         self.robot_name: str = self.get_parameter('robot_name').value
         all_robots: List[str] = self.get_parameter('robot_list').value
@@ -54,7 +54,7 @@ class DMPCNode(Node):
         # -----------------------------
         self.R_robot   = 0.20
         self.margin    = 0.05
-        self.alpha_cbf = 20.0
+        self.alpha_cbf = 3.0
         self.rho_slack = 1e4
 
         # -----------------------------

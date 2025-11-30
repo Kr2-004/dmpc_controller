@@ -17,6 +17,8 @@ dmpc_controller/dude.py
 dmpc_controller/test.py
 launch/puzzlebot1.launch.py
 launch/puzzlebot2.launch.py
+launch/puzzlebot3.launch.py
+launch/puzzlebot4.launch.py
 resource/dmpc_controller
 test/test_copyright.py
 test/test_flake8.py
