@@ -66,7 +66,6 @@ class DMPCNode(Node):
         # --- Publishers ---
         self.pub_L = self.create_publisher(Float32, f'/{robot_name}/VelocitySetL', 10)
         self.pub_R = self.create_publisher(Float32, f'/{robot_name}/VelocitySetR', 10)
-        self.pred_pub = self.create_publisher(Float32MultiArray, f'/{robot_name}/mpc_prediction', 10)
         self.cmd_pub = self.create_publisher(Float32MultiArray, f'/{robot_name}/mpc_cmd',10)
 
         self.timer = self.create_timer(self.Ts, self.control_step)
@@ -110,12 +109,6 @@ class DMPCNode(Node):
             )
 
         J = 0
-        Xpred = []
-        xk = x0
-        for j in range(N):
-            uj = U[j*nu:(j+1)*nu]
-            xk = f(xk, uj)
-            Xpred.append(xk)
 
             # --- Reference prediction ---
             ref_jx = ref[0] + v_ref * Ts * j * ca.cos(ref[2])
@@ -224,16 +217,6 @@ class DMPCNode(Node):
             u0 = Ustar[:2]
             self.U_prev = Ustar.copy()
 
-            # Build predicted trajectory including v,w
-            traj = self.predict_trajectory(self.x_current, Ustar)
-            flat = []
-
-            for step in traj:          # step = [x, y, th, v, w]
-                flat.extend(step.tolist())
-            msg_pred = Float32MultiArray()
-            msg_pred.data = flat
-            self.pred_pub.publish(msg_pred)
-
         except Exception as e:
             self.get_logger().warn(f"Solver failed: {e}")
             u0 = np.array([0.05, 0.0])
@@ -252,41 +235,13 @@ class DMPCNode(Node):
         self.pub_R.publish(Float32(data=float(wr)))
         self.u_last = np.array([v_cmd, w_cmd])
         msg_cmd = Float32MultiArray()
-        msg_cmd.data = [v_cmd, w_cmd, self.v_ref]   
+        msg_cmd.data = [v_cmd, w_cmd]
         self.cmd_pub.publish(msg_cmd)
         t = time.time() - self.start_wall_time
         self.get_logger().info(
             f"[t={t:4.1f}s] v={v_cmd:.3f}, w={w_cmd:.3f} | WL={wl:.2f}, WR={wr:.2f} | "
             f"x={self.x_current[0]:.2f}, y={self.x_current[1]:.2f}"
         )
-
-    def predict_trajectory(self, x0: np.ndarray, U: np.ndarray):
-        """
-        Reconstruct predicted trajectory using the unicycle model.
-
-        Returns a list of length N where each element is:
-            [x, y, theta, v, w]
-        corresponding to the state AFTER applying (v,w) at that step.
-        """
-        Ts = self.Ts
-        traj = []
-        xk = x0.copy()
-
-        for j in range(self.N):
-            v = float(U[2 * j])
-            w = float(U[2 * j + 1])
-            th = xk[2]
-
-            x_next = np.array([
-                xk[0] + Ts * v * np.cos(th),
-                xk[1] + Ts * v * np.sin(th),
-                xk[2] + Ts * w
-            ])
-
-            traj.append(np.array([x_next[0], x_next[1], x_next[2], v, w]))
-            xk = x_next
-
-        return traj
         
 def main(args=None):
     rclpy.init(args=args)
