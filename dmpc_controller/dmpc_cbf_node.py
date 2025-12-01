@@ -251,7 +251,9 @@ class DMPCNode(Node):
         self.pub_L.publish(Float32(data=float(wl)))
         self.pub_R.publish(Float32(data=float(wr)))
         self.u_last = np.array([v_cmd, w_cmd])
-
+        msg_cmd = Float32MultiArray()
+        msg_cmd.data = [v_cmd, w_cmd, self.v_ref]   # include ref if you want
+        self.cmd_pub.publish(msg_cmd)
         t = time.time() - self.start_wall_time
         self.get_logger().info(
             f"[t={t:4.1f}s] v={v_cmd:.3f}, w={w_cmd:.3f} | WL={wl:.2f}, WR={wr:.2f} | "
