@@ -109,7 +109,10 @@ class DMPCNode(Node):
             )
 
         J = 0
-
+        xk = x0
+        for j in range(N):
+            uj = U[j*nu:(j+1)*nu]
+            xk = f(xk, uj)
             # --- Reference prediction ---
             ref_jx = ref[0] + v_ref * Ts * j * ca.cos(ref[2])
             ref_jy = ref[1] + v_ref * Ts * j * ca.sin(ref[2])
