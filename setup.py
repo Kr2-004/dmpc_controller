@@ -25,11 +25,6 @@ setup(
     entry_points={
         'console_scripts': [
 	    'dmpc_node = dmpc_controller.dmpc_node:main',
-        'dmpc_copy_node = dmpc_controller.dmpc_copy_node:main',
-        'dmpc_cbf_node = dmpc_controller.dmpc_cbf_node:main',
-        'damn = dmpc_controller.damn:main',
-        'dude = dmpc_controller.dude:main',
-        'test = dmpc_controller.test:main',
         ],
     },
 )
